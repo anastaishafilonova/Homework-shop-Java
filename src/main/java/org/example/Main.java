@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.sound.midi.Soundbank;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -11,53 +12,73 @@ public class Main {
 
   public static void main(String[] args) {
     ArrayList<Good> goods = new ArrayList<>();
-    // изначально дан файл с описанием товаров (словарь имя и кол-во)
-    // считываем файл по строчкам, пока пусть n - кол-во строк
-    int n = 3;
-    for (int i = 0; i < n; i++) {
-      Good good = new Good("", i);
-      goods.add(good);
+
+    String fileName;
+    fileName = "store.txt";
+    File file;
+    file = new File(fileName);
+    try {
+      Scanner input = new Scanner(file);
+      int n = input.nextInt();
+      for (int i = 0; i < n; i++) {
+        String name = input.next();
+        long count = input.nextLong();
+        Good good = new Good(name, count);
+        goods.add(good);
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
     }
+
     Store store = new Store(goods);
     System.out.println("Добро пожаловать в магазин!" + "\n" +
         "На данный момент в наличии имеются следующие товары: ");
     store.printGoods();
     System.out.println("Введите число ваших действий: ");
     int q = input.nextInt();
-    while (q < 0) {
+    while (q <= 0) {
       System.out.println("Попробуйте ещё раз");
       q = input.nextInt();
     }
-    for (int i = 0; i < q; i++) {
+    for (int j = 0; j < q; j++) {
       System.out.println("Выберите одну из возможных опций: " + "\n" +
-          "1 создать нового пользователя " + "\n" +
-          "2 добавить корзину" + "\n" +
-          "3 купить корзину" + "\n" +
-          "4 добавить новый товар на склад");
+          "1 - Создать нового пользователя " + "\n" +
+          "2 - Добавить корзину" + "\n" +
+          "3 - Купить корзину");
       String action = input.next();
       if (Objects.equals(action, "1")) {
         User user = new User();
         UserActions.addUser(user);
+        System.out.println("ID пользователя: " + (long) user.getId());
       } else if ("2".equals(action)) {
-        System.out.println("Передайте файл со списком товаров");
-        // принимает файл с товарами
-        System.out.println("Введите номер пользователя");
-        AtomicLong userId = new AtomicLong(input.nextLong());
-        User user = UserActions.findUserById(new UserId(userId));
-        // создать список товаров из файла
+        System.out.println("Введите название файла со списком товаров со списком товаров");
+        fileName = input.next();
+        file = new File(fileName);
         ArrayList<Good> goodsOfThisBasket = new ArrayList<>();
-        user.addBasket(new Basket(new UserId(userId), goodsOfThisBasket));
+        try {
+          Scanner input = new Scanner(file);
+          int n = input.nextInt();
+          for (int i = 0; i < n; i++) {
+            String name = input.next();
+            long count = input.nextLong();
+            Good good = new Good(name, count);
+            goodsOfThisBasket.add(good);
+          }
+        } catch (FileNotFoundException e) {
+          e.printStackTrace();
+        }
+        System.out.println("Введите номер пользователя");
+        long userId = input.nextLong();
+        User user = UserActions.findUserById(userId);
+        user.addBasket(new Basket(userId, goodsOfThisBasket));
       } else if (Objects.equals(action, "3")) {
         System.out.println("Введите номер пользователя");
-        AtomicLong userId = new AtomicLong(input.nextLong());
-        User user = UserActions.findUserById(new UserId(userId));
+        long userId = input.nextLong();
+        User user = UserActions.findUserById(userId);
         System.out.println("Доступные для покупки корзины у этого пользователя: ");
         user.printMyBaskets();
         System.out.println("Введите номер покупаемой корзины");
-        user.buyBasket(new BasketId(new AtomicLong(input.nextLong())));
-      } else if (Objects.equals(action, "4")) {
-        System.out.println("Введите имя и кол-во товара через пробел");
-        Store.addNewGood(new Good(input.next(), input.nextInt()));
+        user.buyBasket(input.nextLong());
       }
     }
   }

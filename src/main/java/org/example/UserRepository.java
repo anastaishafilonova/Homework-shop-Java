@@ -11,7 +11,7 @@ public class UserRepository {
     allUsers.add(user);
   }
 
-  public static User findUserById(UserId id) {
+  public static User findUserById(long id) {
     for (User user: allUsers) {
       if (user.getId() == id) {
         return user;

@@ -49,7 +49,7 @@ public class Store {
 
   public static void printGoods() {
     for (Good good: allGoodsOfStore) {
-      System.out.println(good);
+      System.out.println(good.name + " - " + good.number + " шт.");
     }
   }
 }

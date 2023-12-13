@@ -1,25 +1,23 @@
 package org.example;
 
-import org.example.BasketId;
-import org.example.UserActions;
 import org.example.exceptions.BasketNotFoundException;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class User {
-  private UserId id;
-  ArrayList<Basket> myBaskets;
+  private long id;
+  ArrayList<Basket> myBaskets = new ArrayList<>();
 
   public User() {
     this.id = UserActions.generateId();
   }
 
+
   public void addBasket(Basket basket) {
-    // на вход принимаем словарь со списком корзины
+    myBaskets.add(basket);
   }
 
-  public Basket findBasketById(BasketId id) {
+  public Basket findBasketById(long id) {
     for (Basket basket: myBaskets) {
       if (basket.getId() == id) {
         return basket;
@@ -27,7 +25,7 @@ public class User {
     } throw new BasketNotFoundException("Not found basket with id: " + id);
   }
 
-  public void buyBasket(BasketId id) {
+  public void buyBasket(long id) {
     Basket basket = findBasketById(id);
     deleteBasket(basket);
     ArrayList<Good> goods = basket.goods;
@@ -36,7 +34,7 @@ public class User {
     }
   }
 
-  public UserId getId() {
+  public long getId() {
     return id;
   }
 
@@ -50,7 +48,11 @@ public class User {
 
   public void printMyBaskets() {
     for (Basket basket: myBaskets) {
-      System.out.println(basket);
+      System.out.println("Номер корзины " + basket.getId());
+      System.out.println("Содержимое корзины: ");
+      for (int i = 0; i < basket.goods.size(); i++) {
+        System.out.println(basket.goods.get(i).name + " - " + basket.goods.get(i).number + " шт.");
+      }
     }
   }
 }
