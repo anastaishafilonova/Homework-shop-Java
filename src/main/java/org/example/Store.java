@@ -12,6 +12,10 @@ public class Store {
     allGoodsOfStore = goods;
   }
 
+  public ArrayList<Good> getAllGoodsOfStore() {
+    return allGoodsOfStore;
+  }
+
   public synchronized static void deleteGood(Good good) {
     allGoodsOfStore.remove(good);
   }
@@ -33,9 +37,12 @@ public class Store {
     } throw new StoreDecreaseNumberOfGoodException("Lack of good with name: " + good.name);
   }
 
-  public static void printGoods() {
+  public static String printGoods() {
+    String ans = "";
     for (Good good: allGoodsOfStore) {
       System.out.println(good.name + " - " + good.number + " шт.");
+      ans += good.name + " - " + good.number + " шт.\n";
     }
+    return ans;
   }
 }

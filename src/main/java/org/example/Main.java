@@ -35,7 +35,7 @@ public class Main {
     Store store = new Store(goods);
     System.out.println("Добро пожаловать в магазин!" + "\n" +
         "На данный момент в наличии имеются следующие товары: ");
-    store.printGoods();
+    Store.printGoods();
     System.out.println("Введите число ваших действий: ");
     int q = input.nextInt();
     while (q <= 0) {

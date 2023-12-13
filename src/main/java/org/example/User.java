@@ -38,21 +38,20 @@ public class User {
     return id;
   }
 
-  public ArrayList<Basket> getMyBaskets() {
-    return myBaskets;
-  }
-
   public void deleteBasket(Basket basket) {
     myBaskets.remove(basket);
   }
 
-  public void printMyBaskets() {
+  public String printMyBaskets() {
+    String ans = "";
     for (Basket basket: myBaskets) {
       System.out.println("Номер корзины " + basket.getId());
       System.out.println("Содержимое корзины: ");
       for (int i = 0; i < basket.goods.size(); i++) {
         System.out.println(basket.goods.get(i).name + " - " + basket.goods.get(i).number + " шт.");
+        ans += basket.goods.get(i).name + " - " + basket.goods.get(i).number + " шт.\n";
       }
     }
+    return ans;
   }
 }
