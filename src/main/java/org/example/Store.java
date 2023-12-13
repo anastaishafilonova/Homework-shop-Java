@@ -13,11 +13,11 @@ public class Store {
     allGoodsOfStore = goods;
   }
 
-  public void addNewGood(Good newGood) {
+  public static void addNewGood(Good newGood) {
     allGoodsOfStore.add(newGood);
   }
 
-  public void increaseNumberOfGood(Good good, long numberOfAddedGoods) {
+  public static void increaseNumberOfGood(Good good, long numberOfAddedGoods) {
     if (allGoodsOfStore.contains(good)) {
       good.number += numberOfAddedGoods;
     } else {
@@ -45,5 +45,11 @@ public class Store {
         }
       }
     } throw new StoreDecreaseNumberOfGoodException("Lack of good with name: " + good.name);
+  }
+
+  public static void printGoods() {
+    for (Good good: allGoodsOfStore) {
+      System.out.println(good);
+    }
   }
 }
