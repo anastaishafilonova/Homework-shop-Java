@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.Good;
 import org.example.exceptions.StoreDecreaseNumberOfGoodException;
 
 import java.util.ArrayList;
@@ -13,24 +12,11 @@ public class Store {
     allGoodsOfStore = goods;
   }
 
-  public static void addNewGood(Good newGood) {
-    allGoodsOfStore.add(newGood);
-  }
-
-  public static void increaseNumberOfGood(Good good, long numberOfAddedGoods) {
-    if (allGoodsOfStore.contains(good)) {
-      good.number += numberOfAddedGoods;
-    } else {
-      good.number += numberOfAddedGoods;
-      addNewGood(good);
-    }
-  }
-
-  public static void deleteGood(Good good) {
+  public synchronized static void deleteGood(Good good) {
     allGoodsOfStore.remove(good);
   }
 
-  public static void decreaseNumberOfGood(Good good) throws StoreDecreaseNumberOfGoodException {
+  public synchronized static void decreaseNumberOfGood(Good good) throws StoreDecreaseNumberOfGoodException {
     long numberOfDeletedGoods = good.number;
     for (Good goodOfStore: allGoodsOfStore) {
       if (Objects.equals(goodOfStore.name, good.name)) {
