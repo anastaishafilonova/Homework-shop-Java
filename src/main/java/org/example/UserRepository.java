@@ -19,3 +19,4 @@ public class UserRepository {
     } throw new UserNotFoundException("Not found user with id: " + id);
   }
 }
+
