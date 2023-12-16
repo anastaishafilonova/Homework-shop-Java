@@ -17,16 +17,16 @@ public class Store {
     }
   }
 
-  public UserRepository getUserRepository() {
+  public synchronized UserRepository getUserRepository() {
     return userRepository;
   }
 
-  public UserActions getUserActions() {
+  public synchronized UserActions getUserActions() {
     return userActions;
   }
 
 
-  public ArrayList<Good> getAllGoodsOfStore() {
+  public synchronized ArrayList<Good> getAllGoodsOfStore() {
     return new ArrayList<>(allGoodsOfStore.values());
   }
 
@@ -44,7 +44,7 @@ public class Store {
     } else throw new StoreDecreaseNumberOfGoodException("Lack of good with name: " + good.name);
   }
 
-  public String printGoods() {
+  public synchronized String printGoods() {
     String ans = "";
     for (String good: allGoodsOfStore.keySet()) {
       System.out.println(good + " - " + allGoodsOfStore.get(good).number + " шт.");
