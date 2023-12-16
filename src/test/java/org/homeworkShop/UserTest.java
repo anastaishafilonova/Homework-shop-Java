@@ -1,10 +1,11 @@
 package org.homeworkShop;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class UserTest {
   Store store = new Store(new ArrayList<>());
@@ -14,7 +15,7 @@ class UserTest {
     Basket basket = new Basket(1, goods);
     ArrayList<Basket> list = new ArrayList<>();
     list.add(basket);
-    assertFalse(list.size() == 0);
+    Assertions.assertFalse(list.size() == 0);
   }
 
   @Test
@@ -37,7 +38,7 @@ class UserTest {
     myBaskets.add(basket1);
     Basket basket2 = new Basket(2, goods2);
     myBaskets.add(basket2);
-    assertEquals(user.printMyBaskets(), "Лимон - 1 шт.\n" +
+    Assertions.assertEquals(user.printMyBaskets(), "Лимон - 1 шт.\n" +
             "Яблоко - 1 шт.\n" +
             "<Банан> - 1 шт.\n" +
             "Лимон - 3 шт.\n" +
@@ -52,10 +53,10 @@ class UserTest {
     User user3 = new User(store);
     User user4 = new User(store);
     User user5 = new User(store);
-    assertEquals(user1.getId(), 2L);
-    assertEquals(user2.getId(), 3L);
-    assertEquals(user3.getId(), 4L);
-    assertEquals(user4.getId(), 5L);
-    assertEquals(user5.getId(), 6L);
+    Assertions.assertEquals(user1.getId(), 2L);
+    Assertions.assertEquals(user2.getId(), 3L);
+    Assertions.assertEquals(user3.getId(), 4L);
+    Assertions.assertEquals(user4.getId(), 5L);
+    Assertions.assertEquals(user5.getId(), 6L);
   }
 }
