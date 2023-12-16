@@ -3,8 +3,10 @@ package org.homeworkShop;
 import org.homeworkShop.exceptions.BasketNotFoundException;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class User {
+  private static final Logger logger = Logger.getLogger(Main.class.getSimpleName());
   private long id;
   private final Store store;
   ArrayList<Basket> myBaskets = new ArrayList<>();
@@ -46,10 +48,10 @@ public class User {
   public String printMyBaskets() {
     String ans = "";
     for (Basket basket: myBaskets) {
-      System.out.println("Номер корзины " + basket.getId());
-      System.out.println("Содержимое корзины: ");
+      logger.info("Номер корзины " + basket.getId());
+      logger.info("Содержимое корзины: ");
       for (int i = 0; i < basket.goods.size(); i++) {
-        System.out.println(basket.goods.get(i).name + " - " + basket.goods.get(i).number + " шт.");
+        logger.info(basket.goods.get(i).name + " - " + basket.goods.get(i).number + " шт.");
         ans += basket.goods.get(i).name + " - " + basket.goods.get(i).number + " шт.\n";
       }
     }

@@ -33,18 +33,18 @@ public class Main {
     }
 
     Store store = new Store(goods);
-    System.out.println("Добро пожаловать в магазин!" + "\n" +
+    logger.info("Добро пожаловать в магазин!" + "\n" +
         "На данный момент в наличии имеются следующие товары: ");
     store.printGoods();
-    System.out.println("Введите число ваших действий: ");
+    logger.info("Введите число ваших действий: ");
     int q = input.nextInt();
     while (q <= 0) {
-      System.out.println("Попробуйте ещё раз");
+      logger.info("Попробуйте ещё раз");
       q = input.nextInt();
     }
     logger.info("Считано количество действий пользователя");
     for (int j = 0; j < q; j++) {
-      System.out.println("Выберите одну из возможных опций: " + "\n" +
+      logger.info("Выберите одну из возможных опций: " + "\n" +
           "1 - Создать нового пользователя " + "\n" +
           "2 - Добавить корзину" + "\n" +
           "3 - Купить корзину");
@@ -53,11 +53,11 @@ public class Main {
         logger.info("Запуск исполнения первой опции");
         User user = new User(store);
         store.getUserActions().addUser(user);
-        System.out.println("ID пользователя: " + user.getId());
+        logger.info("ID пользователя: " + user.getId());
         logger.info("Первая опция была исполнена успешно");
       } else if ("2".equals(action)) {
         logger.info("Запуск исполнения второй опции");
-        System.out.println("Введите название файла со списком товаров со списком товаров");
+        logger.info("Введите название файла со списком товаров со списком товаров");
         fileName = input.next();
         file = new File(fileName);
         ArrayList<Good> goodsOfThisBasket = new ArrayList<>();
@@ -73,19 +73,19 @@ public class Main {
         } catch (FileNotFoundException e) {
           e.printStackTrace();
         }
-        System.out.println("Введите номер пользователя");
+        logger.info("Введите номер пользователя");
         long userId = input.nextLong();
         User user = store.getUserActions().findUserById(userId);
         user.addBasket(new Basket(userId, goodsOfThisBasket));
         logger.info("Вторая опция была исполнена успешно");
       } else if (Objects.equals(action, "3")) {
         logger.info("Запуск исполнения третьей опции");
-        System.out.println("Введите номер пользователя");
+        logger.info("Введите номер пользователя");
         long userId = input.nextLong();
         User user = store.getUserActions().findUserById(userId);
-        System.out.println("Доступные для покупки корзины у этого пользователя: ");
+        logger.info("Доступные для покупки корзины у этого пользователя: ");
         user.printMyBaskets();
-        System.out.println("Введите номер покупаемой корзины");
+        logger.info("Введите номер покупаемой корзины");
         user.buyBasket(input.nextLong());
         logger.info("Третья опция была исполнена успешно");
       }
