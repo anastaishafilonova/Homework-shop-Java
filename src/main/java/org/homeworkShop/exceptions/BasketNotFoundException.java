@@ -1,4 +1,4 @@
-package org.example.exceptions;
+package org.homeworkShop.exceptions;
 
 public class BasketNotFoundException extends RuntimeException {
   public BasketNotFoundException(String message) {

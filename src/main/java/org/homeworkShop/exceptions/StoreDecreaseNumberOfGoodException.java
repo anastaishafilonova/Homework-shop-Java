@@ -1,4 +1,4 @@
-package org.example.exceptions;
+package org.homeworkShop.exceptions;
 
 public class StoreDecreaseNumberOfGoodException extends RuntimeException {
   public StoreDecreaseNumberOfGoodException(String message) {

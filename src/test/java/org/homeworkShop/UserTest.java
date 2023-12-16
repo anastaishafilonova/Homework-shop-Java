@@ -1,6 +1,5 @@
-package org.example;
+package org.homeworkShop;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
+  Store store = new Store(new ArrayList<>());
   @Test
   void addBasket() {
     ArrayList<Good> goods = new ArrayList<>();
@@ -19,7 +19,7 @@ class UserTest {
 
   @Test
   void printMyBaskets() {
-    User user = new User();
+    User user = new User(store);
     ArrayList<Basket> myBaskets = user.myBaskets;
     ArrayList<Good> goods1 = new ArrayList<>();
     Good good1 = new Good("Лимон", 1);
@@ -47,11 +47,11 @@ class UserTest {
 
   @Test
   void getId() {
-    User user1 = new User();
-    User user2 = new User();
-    User user3 = new User();
-    User user4 = new User();
-    User user5 = new User();
+    User user1 = new User(store);
+    User user2 = new User(store);
+    User user3 = new User(store);
+    User user4 = new User(store);
+    User user5 = new User(store);
     assertEquals(user1.getId(), 2L);
     assertEquals(user2.getId(), 3L);
     assertEquals(user3.getId(), 4L);

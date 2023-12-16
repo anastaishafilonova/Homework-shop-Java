@@ -1,6 +1,4 @@
-package org.example.exceptions;
-
-import org.example.User;
+package org.homeworkShop.exceptions;
 
 public class UserNotFoundException extends RuntimeException{
   public UserNotFoundException(String message) {

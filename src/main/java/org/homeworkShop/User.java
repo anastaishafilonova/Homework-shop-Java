@@ -1,17 +1,18 @@
-package org.example;
+package org.homeworkShop;
 
-import org.example.exceptions.BasketNotFoundException;
+import org.homeworkShop.exceptions.BasketNotFoundException;
 
 import java.util.ArrayList;
 
 public class User {
   private long id;
+  private final Store store;
   ArrayList<Basket> myBaskets = new ArrayList<>();
 
-  public User() {
-    this.id = UserActions.generateId();
+  public User(Store store) {
+    this.id = store.getUserActions().generateId();
+    this.store = store;
   }
-
 
   public void addBasket(Basket basket) {
     myBaskets.add(basket);
@@ -30,7 +31,7 @@ public class User {
     deleteBasket(basket);
     ArrayList<Good> goods = basket.goods;
     for (Good good: goods) {
-      Store.decreaseNumberOfGood(good);
+      store.decreaseNumberOfGood(good);
     }
   }
 

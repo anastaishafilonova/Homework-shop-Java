@@ -1,17 +1,17 @@
-package org.example;
+package org.homeworkShop;
 
-import org.example.exceptions.UserNotFoundException;
+import org.homeworkShop.exceptions.UserNotFoundException;
 
 import java.util.ArrayList;
 
 public class UserRepository {
-  private static ArrayList<User> allUsers = new ArrayList<>();
+  private ArrayList<User> allUsers = new ArrayList<>();
 
-  public static void add(User user) {
+  protected void add(User user) {
     allUsers.add(user);
   }
 
-  public static User findUserById(long id) {
+  protected User findUserById(long id) {
     for (User user: allUsers) {
       if (user.getId() == id) {
         return user;

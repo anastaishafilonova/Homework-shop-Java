@@ -1,8 +1,10 @@
-package org.example;
+package org.homeworkShop;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +16,7 @@ class StoreTest {
     Good good = new Good("Апельсин", 3);
     list.add(good);
     Store store = new Store(list);
-    Store.deleteGood(good);
+    store.deleteGood(good);
     assertEquals(store.getAllGoodsOfStore().size(), 0);
   }
 
@@ -27,9 +29,9 @@ class StoreTest {
     list.add(good2);
     Store store = new Store(list);
     Good good3 = new Good("Слива", 4);
-    Store.decreaseNumberOfGood(good3);
-    assertEquals(store.printGoods(), "Апельсин - 3 шт.\n" +
-            "Слива - 4 шт.\n");
+    store.decreaseNumberOfGood(good3);
+    assertTrue(Objects.equals(store.printGoods(), "Апельсин - 3 шт.\n" + "Слива - 4 шт.\n")
+        || Objects.equals(store.printGoods(),"Слива - 4 шт.\n" + "Апельсин - 3 шт.\n"));
   }
 
   @Test
@@ -40,7 +42,7 @@ class StoreTest {
     Good good2 = new Good("Слива", 8);
     list.add(good2);
     Store store = new Store(list);
-    assertEquals(store.printGoods(), "Апельсин - 3 шт.\n" +
-            "Слива - 8 шт.\n");
+    assertTrue(Objects.equals(store.printGoods(), "Апельсин - 3 шт.\n" + "Слива - 8 шт.\n")
+        || Objects.equals(store.printGoods(),"Слива - 8 шт.\n" + "Апельсин - 3 шт.\n"));
   }
 }

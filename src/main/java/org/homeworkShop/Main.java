@@ -1,4 +1,4 @@
-package org.example;
+package org.homeworkShop;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class Main {
     Store store = new Store(goods);
     System.out.println("Добро пожаловать в магазин!" + "\n" +
         "На данный момент в наличии имеются следующие товары: ");
-    Store.printGoods();
+    store.printGoods();
     System.out.println("Введите число ваших действий: ");
     int q = input.nextInt();
     while (q <= 0) {
@@ -51,8 +51,8 @@ public class Main {
       String action = input.next();
       if (Objects.equals(action, "1")) {
         logger.info("Запуск исполнения первой опции");
-        User user = new User();
-        UserActions.addUser(user);
+        User user = new User(store);
+        store.getUserActions().addUser(user);
         System.out.println("ID пользователя: " + user.getId());
         logger.info("Первая опция была исполнена успешно");
       } else if ("2".equals(action)) {
@@ -75,14 +75,14 @@ public class Main {
         }
         System.out.println("Введите номер пользователя");
         long userId = input.nextLong();
-        User user = UserActions.findUserById(userId);
+        User user = store.getUserActions().findUserById(userId);
         user.addBasket(new Basket(userId, goodsOfThisBasket));
         logger.info("Вторая опция была исполнена успешно");
       } else if (Objects.equals(action, "3")) {
         logger.info("Запуск исполнения третьей опции");
         System.out.println("Введите номер пользователя");
         long userId = input.nextLong();
-        User user = UserActions.findUserById(userId);
+        User user = store.getUserActions().findUserById(userId);
         System.out.println("Доступные для покупки корзины у этого пользователя: ");
         user.printMyBaskets();
         System.out.println("Введите номер покупаемой корзины");
