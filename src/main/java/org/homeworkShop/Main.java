@@ -14,37 +14,36 @@ public class Main {
     logger.info("Программа запущена");
     ArrayList<Good> goods = new ArrayList<>();
 
-    String fileName;
-    fileName = "store.txt";
-    File file;
-    file = new File(fileName);
+    Scanner scanner = null;
     try {
-      Scanner input = new Scanner(file);
-      int n = input.nextInt();
+      scanner = new Scanner(new File("store.txt"));
+      int n = scanner.nextInt();
       for (int i = 0; i < n; i++) {
-        String name = input.next();
-        long count = input.nextLong();
+        String name = scanner.next();
+        long count = scanner.nextLong();
         Good good = new Good(name, count);
         goods.add(good);
       }
       logger.info("Файл 'store.txt' успешно считан");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+    } finally {
+      scanner.close();
     }
 
     Store store = new Store(goods);
-    System.out.println("Добро пожаловать в магазин!" + "\n" +
+    logger.info("Добро пожаловать в магазин!" + "\n" +
         "На данный момент в наличии имеются следующие товары: ");
     store.printGoods();
-    System.out.println("Введите число ваших действий: ");
+    logger.info("Введите число ваших действий: ");
     int q = input.nextInt();
     while (q <= 0) {
-      System.out.println("Попробуйте ещё раз");
+      logger.info("Попробуйте ещё раз");
       q = input.nextInt();
     }
     logger.info("Считано количество действий пользователя");
     for (int j = 0; j < q; j++) {
-      System.out.println("Выберите одну из возможных опций: " + "\n" +
+      logger.info("Выберите одну из возможных опций: " + "\n" +
           "1 - Создать нового пользователя " + "\n" +
           "2 - Добавить корзину" + "\n" +
           "3 - Купить корзину");
@@ -53,39 +52,39 @@ public class Main {
         logger.info("Запуск исполнения первой опции");
         User user = new User(store);
         store.getUserActions().addUser(user);
-        System.out.println("ID пользователя: " + user.getId());
+        logger.info("ID пользователя: " + user.getId());
         logger.info("Первая опция была исполнена успешно");
       } else if ("2".equals(action)) {
         logger.info("Запуск исполнения второй опции");
-        System.out.println("Введите название файла со списком товаров со списком товаров");
-        fileName = input.next();
-        file = new File(fileName);
+        logger.info("Введите название файла со списком товаров со списком товаров");
         ArrayList<Good> goodsOfThisBasket = new ArrayList<>();
         try {
-          Scanner input = new Scanner(file);
-          int n = input.nextInt();
+          scanner = new Scanner(new File(input.next()));
+          int n = scanner.nextInt();
           for (int i = 0; i < n; i++) {
-            String name = input.next();
-            long count = input.nextLong();
+            String name = scanner.next();
+            long count = scanner.nextLong();
             Good good = new Good(name, count);
             goodsOfThisBasket.add(good);
           }
         } catch (FileNotFoundException e) {
           e.printStackTrace();
+        } finally {
+          scanner.close();
         }
-        System.out.println("Введите номер пользователя");
+        logger.info("Введите номер пользователя");
         long userId = input.nextLong();
         User user = store.getUserActions().findUserById(userId);
         user.addBasket(new Basket(userId, goodsOfThisBasket));
         logger.info("Вторая опция была исполнена успешно");
       } else if (Objects.equals(action, "3")) {
         logger.info("Запуск исполнения третьей опции");
-        System.out.println("Введите номер пользователя");
+        logger.info("Введите номер пользователя");
         long userId = input.nextLong();
         User user = store.getUserActions().findUserById(userId);
-        System.out.println("Доступные для покупки корзины у этого пользователя: ");
+        logger.info("Доступные для покупки корзины у этого пользователя: ");
         user.printMyBaskets();
-        System.out.println("Введите номер покупаемой корзины");
+        logger.info("Введите номер покупаемой корзины");
         user.buyBasket(input.nextLong());
         logger.info("Третья опция была исполнена успешно");
       }

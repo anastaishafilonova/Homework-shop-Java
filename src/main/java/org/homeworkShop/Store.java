@@ -5,8 +5,10 @@ import org.homeworkShop.exceptions.StoreDecreaseNumberOfGoodException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Store {
+  private static final Logger logger = Logger.getLogger(Main.class.getSimpleName());
   private final Map<String, Good> allGoodsOfStore = new HashMap<>();
   private final UserRepository userRepository = new UserRepository();
   private final UserActions userActions = new UserActions(userRepository);
@@ -17,16 +19,16 @@ public class Store {
     }
   }
 
-  public UserRepository getUserRepository() {
+  public synchronized UserRepository getUserRepository() {
     return userRepository;
   }
 
-  public UserActions getUserActions() {
+  public synchronized UserActions getUserActions() {
     return userActions;
   }
 
 
-  public ArrayList<Good> getAllGoodsOfStore() {
+  public synchronized ArrayList<Good> getAllGoodsOfStore() {
     return new ArrayList<>(allGoodsOfStore.values());
   }
 
@@ -44,10 +46,10 @@ public class Store {
     } else throw new StoreDecreaseNumberOfGoodException("Lack of good with name: " + good.name);
   }
 
-  public String printGoods() {
+  public synchronized String printGoods() {
     String ans = "";
     for (String good: allGoodsOfStore.keySet()) {
-      System.out.println(good + " - " + allGoodsOfStore.get(good).number + " шт.");
+      logger.info(good + " - " + allGoodsOfStore.get(good).number + " шт.");
       ans += good + " - " + allGoodsOfStore.get(good).number + " шт.\n";
     }
     return ans;
