@@ -53,10 +53,10 @@ class UserTest {
     User user3 = new User(store);
     User user4 = new User(store);
     User user5 = new User(store);
-    Assertions.assertEquals(user1.getId(), 2L);
-    Assertions.assertEquals(user2.getId(), 3L);
-    Assertions.assertEquals(user3.getId(), 4L);
-    Assertions.assertEquals(user4.getId(), 5L);
-    Assertions.assertEquals(user5.getId(), 6L);
+    Assertions.assertEquals(user1.getId(), 3L);
+    Assertions.assertEquals(user2.getId(), 4L);
+    Assertions.assertEquals(user3.getId(), 5L);
+    Assertions.assertEquals(user4.getId(), 6L);
+    Assertions.assertEquals(user5.getId(), 7L);
   }
 }
