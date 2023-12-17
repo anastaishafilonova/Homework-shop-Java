@@ -14,22 +14,21 @@ public class Main {
     logger.info("Программа запущена");
     ArrayList<Good> goods = new ArrayList<>();
 
-    String fileName;
-    fileName = "store.txt";
-    File file;
-    file = new File(fileName);
+    Scanner scanner = null;
     try {
-      Scanner input = new Scanner(file);
-      int n = input.nextInt();
+      scanner = new Scanner(new File("store.txt"));
+      int n = scanner.nextInt();
       for (int i = 0; i < n; i++) {
-        String name = input.next();
-        long count = input.nextLong();
+        String name = scanner.next();
+        long count = scanner.nextLong();
         Good good = new Good(name, count);
         goods.add(good);
       }
       logger.info("Файл 'store.txt' успешно считан");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+    } finally {
+      scanner.close();
     }
 
     Store store = new Store(goods);
@@ -58,20 +57,20 @@ public class Main {
       } else if ("2".equals(action)) {
         logger.info("Запуск исполнения второй опции");
         logger.info("Введите название файла со списком товаров со списком товаров");
-        fileName = input.next();
-        file = new File(fileName);
         ArrayList<Good> goodsOfThisBasket = new ArrayList<>();
         try {
-          Scanner input = new Scanner(file);
-          int n = input.nextInt();
+          scanner = new Scanner(new File(input.next()));
+          int n = scanner.nextInt();
           for (int i = 0; i < n; i++) {
-            String name = input.next();
-            long count = input.nextLong();
+            String name = scanner.next();
+            long count = scanner.nextLong();
             Good good = new Good(name, count);
             goodsOfThisBasket.add(good);
           }
         } catch (FileNotFoundException e) {
           e.printStackTrace();
+        } finally {
+          scanner.close();
         }
         logger.info("Введите номер пользователя");
         long userId = input.nextLong();
